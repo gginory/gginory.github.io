@@ -11,12 +11,12 @@
 <body>
 
 <div class="container py-5">
-  <h1 class="text-center mb-4">Is Gio In?</h1>
+  <h1 class="h1 text-center mb-4">Is Gio In...</h1>
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card">
-        <div class="card-header">The Office?</div>
-        <div class="card-body">
+        <div class="card-header h4" id="officeHeader">The Office?</div>
+        <div class="card-body text-center">
           <h5 class="card-title" id="statusTitle">Loading...</h5>
           <p class="card-text" id="statusText">Please wait while we check the status.</p>
         </div>
@@ -25,17 +25,19 @@
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
   $(document).ready(function() {
-    $.getJSON('Your API Link Here', function(data) {
-      if(data.isInOffice) {
-        $('#statusTitle').text('In Office');
-        $('#statusText').text('This person is currently in the office.');
+    $.getJSON('https://s3.amazonaws.com/gginory.github.io/status-office', function(data) {
+      if(data) {
+        $('#officeHeader').addClass('bg-success text-white');
+        $('#statusTitle').text('Yes');
+        $('#statusText').text('I am currently in the office.');
       } else {
-        $('#statusTitle').text('Out of Office');
-        $('#statusText').text('This person is currently out of the office.');
+        $('#officeHeader').addClass('bg-failure text-white');
+        $('#statusTitle').text('No');
+        $('#statusText').text('I am presently out of the office.');
       }
     });
   });
